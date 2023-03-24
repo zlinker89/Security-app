@@ -1,6 +1,7 @@
 import { StateEnum } from 'src/common/enum/state.enum';
 import { TypeApp } from 'src/common/enum/typeApp.enum';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Tenant } from 'src/modules/tenant/entities/tenant.entity';
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Application {
@@ -9,6 +10,10 @@ export class Application {
 
   @Column()
   name: string;
+
+  @OneToOne(() => Tenant)
+  @JoinColumn()
+  tenant: Tenant
 
   @Column({
     type: 'enum',

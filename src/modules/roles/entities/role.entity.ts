@@ -1,5 +1,6 @@
 import { StateEnum } from "src/common/enum/state.enum";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Tenant } from "src/modules/tenant/entities/tenant.entity";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Role {
@@ -8,6 +9,10 @@ export class Role {
   
     @Column()
     name: string;
+
+    @OneToOne(() => Tenant)
+    @JoinColumn()
+    tenant: Tenant
   
     @Column({
       type: 'enum',

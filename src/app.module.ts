@@ -9,6 +9,7 @@ import { getEnvPath } from 'src/common/helper/env.helper';
 import { ConfigModule } from '@nestjs/config';
 import { RolesModule } from './modules/roles/roles.module';
 import { ApplicationsModule } from './modules/applications/applications.module';
+import { TenantModule } from './modules/tenant/tenant.module';
 const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
 @Module({
   imports: [
@@ -16,7 +17,8 @@ const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
     ConfigModule.forRoot({ envFilePath, isGlobal: true }),
     DatabaseModule,
     RolesModule,
-    ApplicationsModule
+    ApplicationsModule,
+    TenantModule
   ],
   controllers: [AppController],
   providers: [AppService],
