@@ -5,21 +5,19 @@ import { Tenant } from 'src/modules/tenant/entities/tenant.entity';
 import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Application extends AuditBase {
+export class Menu extends AuditBase {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   name: string;
 
+  @Column({
+    nullable: true
+  })
+  icon: string;
+
   @OneToOne(() => Tenant)
   @JoinColumn()
   tenant: Tenant
-
-  @Column({
-    type: 'enum',
-    default: TypeApp.Web,
-    enum: TypeApp,
-  })
-  typeApp: TypeApp;
 }

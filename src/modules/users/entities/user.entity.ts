@@ -1,10 +1,11 @@
 import { StateEnum } from 'src/common/enum/state.enum';
 import { Role } from 'src/modules/roles/entities/role.entity';
+import { AuditBase } from 'src/modules/shared/bases/auditBase';
 import { Tenant } from 'src/modules/tenant/entities/tenant.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
 
 @Entity()
-export class User {
+export class User extends AuditBase {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -21,11 +22,4 @@ export class User {
   @OneToOne(() => Role)
   @JoinColumn()
   role: Role
-
-  @Column({
-    type: 'enum',
-    default: StateEnum.Active,
-    enum: StateEnum,
-  })
-  state: StateEnum;
 }
