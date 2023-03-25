@@ -1,5 +1,5 @@
 import { StateEnum } from 'src/common/enum/state.enum';
-import { Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Column } from 'typeorm';
 
 export class AuditBase {
   @Column({
@@ -9,9 +9,9 @@ export class AuditBase {
   })
   state: StateEnum;
 
-  @CreateDateColumn()
+  @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @Column({ type: "timestamp", default: () => "ON UPDATE CURRENT_TIMESTAMP" })
   updatedAt: Date;
 }
