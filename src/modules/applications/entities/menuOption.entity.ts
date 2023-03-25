@@ -1,10 +1,10 @@
 import { TypeOption } from 'src/common/enum';
 import { TenantBase } from 'src/modules/shared/bases/TenantBase';
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
-import { Application } from './application.entity';
+import { Menu } from './menu.entity';
 
 @Entity()
-export class Menu extends TenantBase {
+export class MenuOption extends TenantBase {
 
   @Column({ 
     nullable: false,

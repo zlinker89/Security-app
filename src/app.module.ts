@@ -10,6 +10,7 @@ import { ConfigModule } from '@nestjs/config';
 import { RolesModule } from './modules/roles/roles.module';
 import { ApplicationsModule } from './modules/applications/applications.module';
 import { TenantModule } from './modules/tenant/tenant.module';
+import { PermissionsModule } from './modules/permissions/permissions.module';
 const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
 @Module({
   imports: [
@@ -18,7 +19,8 @@ const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
     DatabaseModule,
     RolesModule,
     ApplicationsModule,
-    TenantModule
+    TenantModule,
+    PermissionsModule
   ],
   controllers: [AppController],
   providers: [AppService],
