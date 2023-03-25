@@ -1,3 +1,4 @@
+import { CommandModule } from 'nestjs-command';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -11,6 +12,7 @@ import { RolesModule } from './modules/roles/roles.module';
 import { ApplicationsModule } from './modules/applications/applications.module';
 import { TenantModule } from './modules/tenant/tenant.module';
 import { PermissionsModule } from './modules/permissions/permissions.module';
+import { SeedCommand } from './commands/SeedCommand';
 const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
 @Module({
   imports: [
@@ -20,9 +22,10 @@ const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
     RolesModule,
     ApplicationsModule,
     TenantModule,
-    PermissionsModule
+    PermissionsModule,
+    CommandModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [SeedCommand, AppService],
 })
 export class AppModule {}
