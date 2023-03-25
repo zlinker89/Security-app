@@ -1,5 +1,5 @@
 export enum StateEnum{
-    Active = 'Active',
-    Inactive = 'Inactive',
-    Deleted = 'Deleted',
+    ACTIVE = 'Active',
+    INACTIVE = 'Inactive',
+    DELETED = 'Deleted',
 }

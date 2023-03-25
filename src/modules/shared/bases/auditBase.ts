@@ -4,7 +4,7 @@ import { Column } from 'typeorm';
 export class AuditBase {
   @Column({
     type: 'enum',
-    default: StateEnum.Active,
+    default: StateEnum.ACTIVE,
     enum: StateEnum,
   })
   state: StateEnum;

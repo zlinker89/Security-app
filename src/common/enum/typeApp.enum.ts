@@ -1,5 +1,5 @@
 export enum TypeApp{
-    Desktop = 'Escritorio',
-    Web = 'Web',
-    Mobile = 'Movil',
+    DESKTOP = 'Escritorio',
+    WEB = 'Web',
+    MOBILE = 'Movil',
 }

@@ -6,7 +6,7 @@ import { Enviroment } from 'src/common/enum';
 export const DatabaseProvider: DynamicModule = TypeOrmModule.forRootAsync({
   inject: [ConfigService],
   async useFactory(config: ConfigService) {
-    const isDevelopmentEnv = process.env.NODE_ENV !== Enviroment.Production;
+    const isDevelopmentEnv = process.env.NODE_ENV !== Enviroment.PRODUCTION;
 
     const dbConfig = {
       type: config.get('DB_TYPE'),

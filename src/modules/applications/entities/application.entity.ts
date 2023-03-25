@@ -10,7 +10,7 @@ export class Application extends TenantBase {
 
   @Column({
     type: 'enum',
-    default: TypeApp.Web,
+    default: TypeApp.WEB,
     enum: TypeApp,
   })
   typeApp: TypeApp;

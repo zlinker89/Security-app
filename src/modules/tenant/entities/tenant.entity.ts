@@ -9,11 +9,4 @@ export class Tenant extends AuditBase {
 
   @Column()
   name: string;
-
-  @Column({
-    type: 'enum',
-    default: StateEnum.Active,
-    enum: StateEnum,
-  })
-  state: StateEnum;
 }
