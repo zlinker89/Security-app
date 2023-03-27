@@ -9,9 +9,9 @@ export class AuditBase {
   })
   state: StateEnum;
 
-  @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
+  @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" }) // TODO: refactor to config.env
   createdAt: Date;
 
-  @Column({ type: "timestamp", default: () => "ON UPDATE CURRENT_TIMESTAMP" })
+  @Column({ type: "timestamp", default: () => "ON UPDATE CURRENT_TIMESTAMP" }) // TODO: refactor to config.env
   updatedAt: Date;
 }

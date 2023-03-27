@@ -20,6 +20,11 @@ export class SeedCommand {
       id: 0,
       name: "Cliente 1"
     })
+    /**
+     * {
+      where: { state: StateEnum.ACTIVE },
+    }
+     */
     console.log(client1)
 
   }
