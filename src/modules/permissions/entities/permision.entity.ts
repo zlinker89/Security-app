@@ -1,5 +1,6 @@
+import { Role } from "src/modules/roles/entities/role.entity";
 import { TenantBase } from "src/modules/shared/bases/TenantBase";
-import { Column, Entity } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany } from "typeorm";
 
 @Entity()
 export class Permission extends TenantBase {
@@ -18,4 +19,8 @@ export class Permission extends TenantBase {
         default: false
     })
     isGlobal: boolean;
+
+    @ManyToMany(() => Role)
+    @JoinTable()
+    roles: Role[]
 }

@@ -1,12 +1,7 @@
-import { StateEnum } from 'src/common/enum/state.enum';
-import { AuditBase } from 'src/modules/shared/bases/auditBase';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-
+import { BaseEntity } from './../../shared/bases/BaseEntity';
+import { Column, Entity } from 'typeorm';
 @Entity()
-export class Tenant extends AuditBase {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Tenant extends BaseEntity {
   @Column()
   name: string;
 }
