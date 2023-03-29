@@ -1,5 +1,5 @@
+import { PageOptionsDto } from "../../dto/page-options.dto"
 import { PageDto } from "../../dto/page.dto"
-import { PageOptionsDto } from "../ipagemeta/ipagemeta"
 
 export interface IService<T, U>{
     create(obj: T): Promise<U>

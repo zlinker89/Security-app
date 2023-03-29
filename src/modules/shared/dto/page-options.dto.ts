@@ -1,6 +1,7 @@
 import { Type } from '@nestjs/class-transformer';
-import { ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsEnum, IsInt, IsOptional, IsString, Max, Min } from 'class-validator';
+import { TypeFilter } from 'src/common/enum';
 
 export interface IPageMetaDtoParameters {
   pageOptionsDto: PageOptionsDto;
@@ -11,16 +12,28 @@ export enum Order {
   DESC = 'DESC',
 }
 export class PageOptionsDto {
+  
   @ApiPropertyOptional()
   @IsString()
   @IsOptional()
-  readonly criteriaSearch?;
+  readonly criteriaSearch?: string;
 
   @ApiPropertyOptional()
   @IsString()
   @IsOptional()
-  readonly search?;
+  readonly search?: string;
 
+  @ApiPropertyOptional({ enum: TypeFilter, default: TypeFilter.APPROX })
+  @IsEnum(TypeFilter)
+  @IsOptional()
+  readonly typeFilter?: TypeFilter = TypeFilter.APPROX;
+  
+  @ApiProperty({
+    default: 'CreatedAt'
+  })
+  @IsString()
+  readonly columnToSort?: string = 'CreatedAt';
+  
   @ApiPropertyOptional({ enum: Order, default: Order.ASC })
   @IsEnum(Order)
   @IsOptional()
