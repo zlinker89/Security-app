@@ -1,9 +1,9 @@
 import { Tenant } from "src/modules/tenant/entities/tenant.entity";
-import { JoinColumn, OneToOne } from "typeorm";
+import { JoinColumn, ManyToOne } from "typeorm";
 import { BaseEntity } from "./BaseEntity";
 
 export class TenantBase extends BaseEntity {
-    @OneToOne(() => Tenant, { nullable: false })
+    @ManyToOne(() => Tenant, { nullable: false })
     @JoinColumn()
     tenant: Tenant
 }

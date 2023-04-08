@@ -7,7 +7,7 @@ import { StateEnum, TypeFilter } from 'src/common/enum';
 import { PageDto } from 'src/modules/shared/dto/page.dto';
 import { PageMetaDto } from 'src/modules/shared/dto/page-meta.dto';
 import { PageOptionsDto } from 'src/modules/shared/dto/page-options.dto';
-import { Like } from 'typeorm';
+import { FindOneOptions, Like } from 'typeorm';
 
 @Injectable()
 export class TenantService implements IService<TenantDto, Tenant> {
@@ -42,6 +42,10 @@ export class TenantService implements IService<TenantDto, Tenant> {
     const pageMetaDto = new PageMetaDto({ itemCount, pageOptionsDto });
 
     return new PageDto(entities, pageMetaDto);
+  }
+
+  async findOne(pre: FindOneOptions<Tenant>): Promise<Tenant>{
+    return await this._tenantRepository.findOne(pre)
   }
 
   async update(id: number, obj: TenantDto): Promise<Tenant> {
