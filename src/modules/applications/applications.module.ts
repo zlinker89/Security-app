@@ -8,11 +8,14 @@ import { ApplicationService } from './services/application/application.service';
 import { ApplicationRepository } from './repositories/application.repository';
 import { ApplicationController } from './controllers/application/application.controller';
 import { TenantModule } from '../tenant/tenant.module';
+import { MenuController } from './controllers/menu/menu.controller';
+import { MenuService } from './services/menu/menu.service';
+import { MenuRepository } from './repositories/menu.repository';
 
 @Module({
     imports: [TypeOrmModule.forFeature([Application, Menu, MenuOption]), SharedModule, TenantModule],
     exports: [TypeOrmModule],
-    providers: [ApplicationService, ApplicationRepository],
-    controllers: [ApplicationController]
+    providers: [ApplicationService, ApplicationRepository, MenuRepository, MenuService],
+    controllers: [ApplicationController, MenuController]
 })
 export class ApplicationsModule {}
