@@ -11,11 +11,15 @@ import { TenantModule } from '../tenant/tenant.module';
 import { MenuController } from './controllers/menu/menu.controller';
 import { MenuService } from './services/menu/menu.service';
 import { MenuRepository } from './repositories/menu.repository';
+import { MenuOptionController } from './controllers/menu-option/menu-option.controller';
+import { MenuOptionService } from './services/menu-option/menu-option.service';
+import { MenuOptionRepository } from './repositories/menuOption.repository';
 
 @Module({
     imports: [TypeOrmModule.forFeature([Application, Menu, MenuOption]), SharedModule, TenantModule],
     exports: [TypeOrmModule],
-    providers: [ApplicationService, ApplicationRepository, MenuRepository, MenuService],
-    controllers: [ApplicationController, MenuController]
+    providers: [ApplicationService, ApplicationRepository, MenuRepository, 
+        MenuService, MenuOptionService, MenuOptionRepository],
+    controllers: [ApplicationController, MenuController, MenuOptionController]
 })
 export class ApplicationsModule {}

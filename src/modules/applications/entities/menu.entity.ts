@@ -1,6 +1,6 @@
 import { Role } from 'src/modules/roles/entities/role.entity';
 import { TenantBase } from 'src/modules/shared/bases/TenantBase';
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne } from 'typeorm';
 import { Application } from './application.entity';
 
 @Entity()

@@ -9,7 +9,7 @@ import { FindOneOptions, Like } from 'typeorm';
 import { PageMetaDto } from 'src/modules/shared/dto/page-meta.dto';
 import { StateEnum, TypeFilter } from 'src/common/enum';
 import { MenuRepository } from '../../repositories/menu.repository';
-import { ApplicationRepository } from '../../repositories/application.repository';
+import { ApplicationService } from '../application/application.service';
 
 @Injectable()
 export class MenuService
@@ -19,7 +19,7 @@ private readonly table = 'Menu';
 constructor(
   private readonly _MenuRepository: MenuRepository,
   private readonly _tenantService: TenantService,
-  private readonly _applicationRepository: ApplicationRepository,
+  private readonly _applicationRepository: ApplicationService,
 ) {}
 
 async create(obj: MenuDto): Promise<Menu> {
