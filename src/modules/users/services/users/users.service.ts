@@ -8,7 +8,7 @@ import { PageOptionsDto } from 'src/modules/shared/dto/page-options.dto';
 import { PageDto } from 'src/modules/shared/dto/page.dto';
 import { StateEnum, TypeFilter } from 'src/common/enum';
 import { PageMetaDto } from 'src/modules/shared/dto/page-meta.dto';
-import { FindOneOptions, Like } from 'typeorm';
+import { FindOneOptions, Like, ObjectType, getRepository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { RoleService } from 'src/modules/roles/services/role/role.service';
 
@@ -16,6 +16,13 @@ import { RoleService } from 'src/modules/roles/services/role/role.service';
 export class UsersService implements IService<UserDto, User> {
   private readonly table = 'user';
   private readonly saltOrRounds = 10;
+  private excludeColumns = (
+    columnsToExclude: string[]
+  ): string[] =>
+    this._userRepository.metadata.columns
+        .map(column => column.databaseName)
+        .filter(columnName => !columnsToExclude.includes(columnName))
+        .map(columnName => `${this.table}.${columnName}`);
 
   constructor(
     private readonly _tenantService: TenantService,
@@ -54,8 +61,9 @@ export class UsersService implements IService<UserDto, User> {
           : `${pageOptionsDto.search}`;
       queryBuilder.where(obj);
     }
-
+    const selectedColumns = this.excludeColumns(['password']);
     queryBuilder
+      .select(selectedColumns)
       .orderBy(
         this.table + '.' + pageOptionsDto.columnToSort,
         pageOptionsDto.order,
