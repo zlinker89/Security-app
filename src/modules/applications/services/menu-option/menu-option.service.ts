@@ -19,7 +19,7 @@ export class MenuOptionService implements IService<MenuOptionDto, MenuOption> {
     private readonly _menuOptionRepository: MenuOptionRepository,
     private readonly _menuService: MenuService,
     private readonly _tenantService: TenantService,
-    private readonly _applicationRepository: ApplicationService,
+    private readonly _applicationService: ApplicationService,
   ) {}
 
   async create(obj: MenuOptionDto): Promise<MenuOption> {
@@ -29,7 +29,7 @@ export class MenuOptionService implements IService<MenuOptionDto, MenuOption> {
     const tenant = await this._tenantService.findOne({
       where: { id: obj.tenantId },
     });
-    const application = await this._applicationRepository.findOne({
+    const application = await this._applicationService.findOne({
       where: { id: obj.tenantId },
     });
     return await this._menuOptionRepository.save({
@@ -93,7 +93,7 @@ export class MenuOptionService implements IService<MenuOptionDto, MenuOption> {
     const tenant = await this._tenantService.findOne({
       where: { id: obj.tenantId },
     });
-    const application = await this._applicationRepository.findOne({
+    const application = await this._applicationService.findOne({
       where: { id: obj.tenantId },
     });
     const updatedMenu = {

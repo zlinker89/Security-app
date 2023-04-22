@@ -10,7 +10,7 @@ import { RoleController } from './controllers/role/role.controller';
 @Module({
     imports: [TypeOrmModule.forFeature([Role]), TenantModule, SharedModule],
     providers: [Role, RoleService, RoleRepository],
-    exports: [TypeOrmModule, Role],
+    exports: [TypeOrmModule, Role, RoleService],
     controllers: [RoleController]
 })
 export class RolesModule {}

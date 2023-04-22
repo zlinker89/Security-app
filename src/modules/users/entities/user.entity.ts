@@ -4,7 +4,9 @@ import { Entity, Column, JoinColumn, ManyToOne } from 'typeorm';
 
 @Entity()
 export class User extends TenantBase {
-  @Column()
+  @Column({
+    length: 150
+  })
   userName: string;
 
   @Column()
