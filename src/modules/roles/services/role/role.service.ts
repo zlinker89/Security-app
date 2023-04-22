@@ -1,43 +1,37 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { Role } from '../../entities/role.entity';
+import { RoleDto } from '../../dto/role.dto';
 import { IService } from 'src/modules/shared/interfaces/iservice/iservice.interface';
-import { MenuDto } from '../../dto/menu.dto';
-import { Menu } from '../../entities/menu.entity';
 import { TenantService } from 'src/modules/tenant/services/tenant/tenant.service';
 import { PageOptionsDto } from 'src/modules/shared/dto/page-options.dto';
 import { PageDto } from 'src/modules/shared/dto/page.dto';
-import { FindOneOptions, Like } from 'typeorm';
-import { PageMetaDto } from 'src/modules/shared/dto/page-meta.dto';
 import { StateEnum, TypeFilter } from 'src/common/enum';
-import { MenuRepository } from '../../repositories/menu.repository';
-import { ApplicationService } from '../application/application.service';
+import { PageMetaDto } from 'src/modules/shared/dto/page-meta.dto';
+import { FindOneOptions, Like } from 'typeorm';
+import { RoleRepository } from '../../repositories/roles.repository';
 
 @Injectable()
-export class MenuService
-implements IService<MenuDto, Menu>
+export class RoleService 
+implements IService<RoleDto, Role>
 {
-private readonly table = 'menu';
+private readonly table = 'role';
 constructor(
-  private readonly _menuRepository: MenuRepository,
   private readonly _tenantService: TenantService,
-  private readonly _applicationRepository: ApplicationService,
+  private readonly _roleRepository: RoleRepository,
 ) {}
 
-async create(obj: MenuDto): Promise<Menu> {
+async create(obj: RoleDto): Promise<Role> {
   const tenant = await this._tenantService.findOne({
     where: { id: obj.tenantId }
   })
-  const application = await this._applicationRepository.findOne({
-    where: { id: obj.tenantId }
-  })
-  return await this._menuRepository.save({
+  return await this._roleRepository.save({
     name: obj.name,
     tenant: tenant,
-    application: application,
   });
 }
 
-async search(pageOptionsDto: PageOptionsDto): Promise<PageDto<Menu>> {
-  const queryBuilder = this._menuRepository.createQueryBuilder(
+async search(pageOptionsDto: PageOptionsDto): Promise<PageDto<Role>> {
+  const queryBuilder = this._roleRepository.createQueryBuilder(
     this.table,
   );
 
@@ -70,38 +64,34 @@ async search(pageOptionsDto: PageOptionsDto): Promise<PageDto<Menu>> {
   return new PageDto(entities, pageMetaDto);
 }
 
-async findOne(pre: FindOneOptions<Menu>): Promise<Menu>{
-  return await this._menuRepository.findOne(pre)
+async findOne(pre: FindOneOptions<Role>): Promise<Role>{
+  return await this._roleRepository.findOne(pre)
 }
-async update(id: number, obj: MenuDto): Promise<Menu> {
-  const Menu = await this._menuRepository.findOne({
+async update(id: number, obj: RoleDto): Promise<Role> {
+  const Role = await this._roleRepository.findOne({
     where: [
       { state: StateEnum.ACTIVE, id: id },
       { state: StateEnum.INACTIVE, id: id },
     ],
   });
-  if (!Menu) throw new NotFoundException(`La aplicacion no existe`);
+  if (!Role) throw new NotFoundException(`El rol no existe`);
   const tenant = await this._tenantService.findOne({
     where: { id: obj.tenantId }
   })
-  const application = await this._applicationRepository.findOne({
-    where: { id: obj.tenantId }
-  })
-  const updatedMenu = {
-    id: Menu.id,
+  const updatedRole = {
+    id: Role.id,
     name: obj.name,
     tenant: tenant,
-    application: application,
   };
-  return await this._menuRepository.save(updatedMenu);
+  return await this._roleRepository.save(updatedRole);
 }
 
 async remove(id: number): Promise<void> {
-  const menu = await this._menuRepository.findOne({
+  const Role = await this._roleRepository.findOne({
     where: { state: StateEnum.ACTIVE, id: id },
   });
-  if (!menu) throw new NotFoundException(`La aplicacion no existe`);
-  menu.state = StateEnum.DELETED;
-  await this._menuRepository.save(menu);
+  if (!Role) throw new NotFoundException(`el rol no existe`);
+  Role.state = StateEnum.DELETED;
+  await this._roleRepository.save(Role);
 }
 }

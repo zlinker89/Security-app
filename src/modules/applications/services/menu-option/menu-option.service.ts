@@ -14,7 +14,7 @@ import { ApplicationService } from '../application/application.service';
 
 @Injectable()
 export class MenuOptionService implements IService<MenuOptionDto, MenuOption> {
-  private readonly table = 'Menu';
+  private readonly table = 'menu_option';
   constructor(
     private readonly _menuOptionRepository: MenuOptionRepository,
     private readonly _menuService: MenuService,

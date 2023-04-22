@@ -8,7 +8,7 @@ import { Tenant } from '../../entities/tenant.entity';
 import { TenantService } from '../../services/tenant/tenant.service';
 
 @Controller('tenant')
-@ApiTags('Master')
+@ApiTags('Tenant')
 export class TenantController {
     constructor(private _tenantService: TenantService) { }
 

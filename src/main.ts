@@ -10,8 +10,6 @@ async function bootstrap() {
     .setTitle('Security App')
     .setDescription('Aplicacion base de seguridad multi-tenant')
     .setVersion('1.0')
-    .addTag('Security')
-    .addTag('Master')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

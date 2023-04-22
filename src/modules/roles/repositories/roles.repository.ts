@@ -3,7 +3,7 @@ import { DataSource, Repository } from 'typeorm';
 import { Role } from '../entities/role.entity';
 
 @Injectable()
-export class ApplicationRepository
+export class RoleRepository
   extends Repository<Role>
 {
   constructor(private dataSource: DataSource) {

@@ -7,7 +7,7 @@ import { Application } from '../../entities/application.entity';
 import { ApplicationDto } from '../../dto/application.dto';
 
 @Controller('application')
-@ApiTags('Master')
+@ApiTags('Application')
 export class ApplicationController {
     constructor(private _applicationService: ApplicationService) { }
 

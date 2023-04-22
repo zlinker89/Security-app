@@ -7,7 +7,7 @@ import { MenuOptionDto } from '../../dto/menuOption.dto';
 import { PageOptionsDto } from 'src/modules/shared/dto/page-options.dto';
 
 @Controller('menu-option')
-@ApiTags('Master')
+@ApiTags('Menu Option')
 export class MenuOptionController {
 constructor(private _menuOptionService: MenuOptionService) { }
 
