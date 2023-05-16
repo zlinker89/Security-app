@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsEnum, IsNumber, IsOptional, IsString } from "class-validator";
 import { StateEnum } from "src/common/enum";
 
-export class MenuDto {
+export class ModuleDto {
   @ApiProperty()
   @IsOptional()
   id?: number;

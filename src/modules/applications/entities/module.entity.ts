@@ -4,7 +4,7 @@ import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne } from 'ty
 import { Application } from './application.entity';
 
 @Entity()
-export class Menu extends TenantBase {
+export class Module extends TenantBase {
 
   @Column({
     length: 150
@@ -20,8 +20,4 @@ export class Menu extends TenantBase {
   @ManyToOne(() => Application, { nullable: false })
   @JoinColumn()
   application: Application
-
-  @ManyToMany(() => Role)
-  @JoinTable()
-  roles: Role[]
 }

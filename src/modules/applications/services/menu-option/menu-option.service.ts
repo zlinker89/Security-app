@@ -8,7 +8,7 @@ import { PageDto } from 'src/modules/shared/dto/page.dto';
 import { FindOneOptions, Like } from 'typeorm';
 import { PageOptionsDto } from 'src/modules/shared/dto/page-options.dto';
 import { MenuOptionRepository } from '../../repositories/menuOption.repository';
-import { MenuService } from '../menu/menu.service';
+import { ModuleService } from '../module/module.service';
 import { StateEnum, TypeFilter } from 'src/common/enum';
 import { ApplicationService } from '../application/application.service';
 
@@ -17,14 +17,14 @@ export class MenuOptionService implements IService<MenuOptionDto, MenuOption> {
   private readonly table = 'menu_option';
   constructor(
     private readonly _menuOptionRepository: MenuOptionRepository,
-    private readonly _menuService: MenuService,
+    private readonly _moduleService: ModuleService,
     private readonly _tenantService: TenantService,
     private readonly _applicationService: ApplicationService,
   ) {}
 
   async create(obj: MenuOptionDto): Promise<MenuOption> {
-    const menu = await this._menuService.findOne({
-      where: { id: obj.menuId },
+    const module = await this._moduleService.findOne({
+      where: { id: obj.moduleId },
     });
     const tenant = await this._tenantService.findOne({
       where: { id: obj.tenantId },
@@ -36,7 +36,7 @@ export class MenuOptionService implements IService<MenuOptionDto, MenuOption> {
       label: obj.label,
       icon: obj.icon,
       routerLink: obj.routerLink,
-      menu: menu,
+      menu: module,
       tenant: tenant,
       application: application,
     });
@@ -87,8 +87,8 @@ export class MenuOptionService implements IService<MenuOptionDto, MenuOption> {
       ],
     });
     if (!menuOption) throw new NotFoundException(`La opcion de menu no existe`);
-    const menu = await this._menuService.findOne({
-      where: { id: obj.menuId },
+    const module = await this._moduleService.findOne({
+      where: { id: obj.moduleId },
     });
     const tenant = await this._tenantService.findOne({
       where: { id: obj.tenantId },
@@ -101,7 +101,7 @@ export class MenuOptionService implements IService<MenuOptionDto, MenuOption> {
       label: obj.label,
       icon: obj.icon,
       routerLink: obj.routerLink,
-      menu: menu,
+      menu: module,
       tenant: tenant,
       application: application,
     };

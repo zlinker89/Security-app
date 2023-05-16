@@ -32,7 +32,7 @@ export class MenuOptionDto {
 
   @ApiProperty()
   @IsNumber()
-  menuId: number;
+  moduleId: number;
 
   @ApiProperty()
   @IsNumber()

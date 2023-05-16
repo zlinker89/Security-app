@@ -9,5 +9,4 @@ export class MenuOptionRepository
   constructor(private dataSource: DataSource) {
     super(MenuOption, dataSource.createEntityManager());
   }
-
 }

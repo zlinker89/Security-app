@@ -1,7 +1,8 @@
 import { TypeOption } from 'src/common/enum';
 import { TenantBase } from 'src/modules/shared/bases/TenantBase';
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
-import { Menu } from './menu.entity';
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne } from 'typeorm';
+import { Module } from './module.entity';
+import { Role } from 'src/modules/roles/entities/role.entity';
 
 @Entity()
 export class MenuOption extends TenantBase {
@@ -31,7 +32,11 @@ export class MenuOption extends TenantBase {
   })
   typeOption: TypeOption;
 
-  @ManyToOne(() => Menu, { nullable: false })
+  @ManyToOne(() => Module, { nullable: false })
   @JoinColumn()
-  menu: Menu
+  module: Module
+
+  @ManyToMany(() => Role)
+  @JoinTable()
+  roles: Role[]
 }
