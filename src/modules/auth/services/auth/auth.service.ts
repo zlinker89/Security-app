@@ -14,7 +14,8 @@ export class AuthService {
     const user = await this.usersService.findOne({
       where: { userName: username }
     });
-    if (user && user.password === pass) {
+    const passwordHashed = await this.usersService.generateHash(pass)
+    if (user && user.password === passwordHashed) {
       const { password, ...result } = user;
       return result;
     }

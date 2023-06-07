@@ -8,14 +8,13 @@ import { PageOptionsDto } from 'src/modules/shared/dto/page-options.dto';
 import { PageDto } from 'src/modules/shared/dto/page.dto';
 import { StateEnum, TypeFilter } from 'src/common/enum';
 import { PageMetaDto } from 'src/modules/shared/dto/page-meta.dto';
-import { FindOneOptions, Like, ObjectType, getRepository } from 'typeorm';
-import * as bcrypt from 'bcrypt';
+import { FindOneOptions, Like } from 'typeorm';
 import { RoleService } from 'src/modules/roles/services/role/role.service';
+import { BcryptService } from '../bcrypt/bcrypt.service';
 
 @Injectable()
 export class UsersService implements IService<UserDto, User> {
   private readonly table = 'user';
-  private readonly saltOrRounds = 10;
   private excludeColumns = (
     columnsToExclude: string[]
   ): string[] =>
@@ -28,6 +27,7 @@ export class UsersService implements IService<UserDto, User> {
     private readonly _tenantService: TenantService,
     private readonly _rolService: RoleService,
     private readonly _userRepository: UserRepository,
+    private readonly _bcrytpService: BcryptService,
   ) {}
 
   async create(obj: UserDto): Promise<User> {
@@ -37,7 +37,7 @@ export class UsersService implements IService<UserDto, User> {
     const role = await this._rolService.findOne({
       where: { id: obj.roleId },
     });
-    const hash = await bcrypt.hash(obj.password, this.saltOrRounds);
+    const hash = await this.generateHash(obj.password);
     return await this._userRepository.save({
       userName: obj.userName,
       password: hash,
@@ -104,7 +104,7 @@ export class UsersService implements IService<UserDto, User> {
     };
     // update password
     if (obj.password) {
-      const hash = await bcrypt.hash(obj.password, this.saltOrRounds);
+      const hash = await this.generateHash(obj.password);
       updatedUser.password = hash;
     }
     return await this._userRepository.save(updatedUser);
@@ -117,5 +117,9 @@ export class UsersService implements IService<UserDto, User> {
     if (!user) throw new NotFoundException(`El usuario no existe`);
     user.state = StateEnum.DELETED;
     await this._userRepository.save(user);
+  }
+
+  public generateHash(password: string): Promise<string> {
+    return this._bcrytpService.generateHash(password);
   }
 }
