@@ -10,9 +10,9 @@ export class AuditDto {
 
   @ApiProperty()
   @IsOptional()
-  createdAt: Date;
+  createdAt?: Date;
 
   @ApiProperty()
   @IsOptional()
-  updatedAt: Date;
+  updatedAt?: Date;
 }

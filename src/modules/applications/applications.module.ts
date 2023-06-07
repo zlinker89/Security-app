@@ -17,7 +17,7 @@ import { MenuOptionRepository } from './repositories/menuOption.repository';
 
 @Module({
     imports: [TypeOrmModule.forFeature([Application, ModuleEntity, MenuOption]), SharedModule, TenantModule],
-    exports: [TypeOrmModule],
+    exports: [TypeOrmModule, ApplicationService, ModuleService],
     providers: [ApplicationService, ApplicationRepository, ModuleRepository, 
         ModuleService, MenuOptionService, MenuOptionRepository],
     controllers: [ApplicationController, ModuleController, MenuOptionController]

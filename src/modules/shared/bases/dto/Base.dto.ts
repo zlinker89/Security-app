@@ -10,5 +10,5 @@ export class BaseDto extends AuditDto {
   @ApiProperty()
   @IsOptional()
   @IsString()
-  uuid: string;
+  uuid?: string;
 }
