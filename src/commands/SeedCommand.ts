@@ -56,6 +56,7 @@ export class SeedCommand {
         { name: 'Actualizar cliente', ability: 'tenant:update', isGlobal: false},
         { name: 'Eliminar cliente', ability: 'tenant:delete', isGlobal: false},
       ]
+      const permissionCreateds = []
       for (const permission of permissions) {
         const permissionCreated = await this._permissionService.create({
           name: permission.name,
@@ -63,7 +64,10 @@ export class SeedCommand {
           isGlobal: permission.isGlobal,
           tenantId: client1.id,
         });
+        permissionCreateds.push(permissionCreated)
       }
+      console.log('setting permissions to rol');
+      await this._rolService.updatePermission(rolAdmin.id, permissionCreateds, [])
       
     } catch (error) {
       throw error;
