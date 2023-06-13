@@ -63,6 +63,7 @@ export class SeedCommand {
           ability: permission.ability,
           isGlobal: permission.isGlobal,
           tenantId: client1.id,
+          moduleId: module1.id
         });
         permissionCreateds.push(permissionCreated)
       }

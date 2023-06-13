@@ -9,6 +9,7 @@ import { StateEnum, TypeFilter } from 'src/common/enum';
 import { PageMetaDto } from 'src/modules/shared/dto/page-meta.dto';
 import { FindOneOptions, Like } from 'typeorm';
 import { PermissionDto } from '../../dto/permission.dto';
+import { ModuleService } from 'src/modules/applications/services/module/module.service';
 
 @Injectable()
 export class PermissionService 
@@ -17,6 +18,7 @@ implements IService<PermissionDto, Permission>
 private readonly table = 'permission';
 constructor(
   private readonly _tenantService: TenantService,
+  private readonly _moduleService: ModuleService,
   private readonly _roleRepository: PermissionRepository,
 ) {}
 
@@ -24,11 +26,15 @@ async create(obj: PermissionDto): Promise<Permission> {
   const tenant = await this._tenantService.findOne({
     where: { id: obj.tenantId }
   })
+  const module = await this._moduleService.findOne({
+    where: { id: obj.moduleId }
+  })
   return await this._roleRepository.save({
     name: obj.name,
     ability: obj.ability,
     isGlobal: obj.isGlobal,
     tenant: tenant,
+    module: module
   });
 }
 
@@ -80,12 +86,16 @@ async update(id: number, obj: PermissionDto): Promise<Permission> {
   const tenant = await this._tenantService.findOne({
     where: { id: obj.tenantId }
   })
+  const module = await this._moduleService.findOne({
+    where: { id: obj.moduleId }
+  })
   const updatedPermission = {
     id: Permission.id,
     name: obj.name,
     ability: obj.ability,
     isGlobal: obj.isGlobal,
     tenant: tenant,
+    module: module,
   };
   return await this._roleRepository.save(updatedPermission);
 }

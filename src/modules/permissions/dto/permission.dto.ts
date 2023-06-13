@@ -18,4 +18,8 @@ export class PermissionDto extends TenantBaseDto {
   @ApiProperty()
   @IsBoolean()
   isGlobal: boolean;
+
+  @ApiProperty()
+  @IsNumber()
+  moduleId: number;
 }
