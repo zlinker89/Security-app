@@ -107,4 +107,21 @@ export class RoleService implements IService<RoleDto, Role> {
       .of(role)
       .addAndRemove(permissiosAddeds, permissiosRemoveds);
   }
+
+  
+  async updateMenuOption(id: number, rolesAddeds: Role[], rolesRemoveds: Role[]): Promise<void> {
+    const role = await this._roleRepository.findOne({
+      where: { id: id },
+      relations: [
+        "menuOptions"
+      ]
+    });
+    if (!role) throw new NotFoundException(`el rol no existe`);
+    // set permissions added and removed
+    await this._roleRepository
+      .createQueryBuilder()
+      .relation(Role, 'menuOptions')
+      .of(role)
+      .addAndRemove(rolesAddeds, rolesRemoveds);
+  }
 }

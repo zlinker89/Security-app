@@ -23,7 +23,7 @@ export class MenuOptionService implements IService<MenuOptionDto, MenuOption> {
   ) {}
 
   async create(obj: MenuOptionDto): Promise<MenuOption> {
-    const module = await this._moduleService.findOne({
+    const _module = await this._moduleService.findOne({
       where: { id: obj.moduleId },
     });
     const tenant = await this._tenantService.findOne({
@@ -36,7 +36,7 @@ export class MenuOptionService implements IService<MenuOptionDto, MenuOption> {
       label: obj.label,
       icon: obj.icon,
       routerLink: obj.routerLink,
-      menu: module,
+      module: _module,
       tenant: tenant,
       application: application,
     });
@@ -87,7 +87,7 @@ export class MenuOptionService implements IService<MenuOptionDto, MenuOption> {
       ],
     });
     if (!menuOption) throw new NotFoundException(`La opcion de menu no existe`);
-    const module = await this._moduleService.findOne({
+    const _module = await this._moduleService.findOne({
       where: { id: obj.moduleId },
     });
     const tenant = await this._tenantService.findOne({
@@ -101,7 +101,7 @@ export class MenuOptionService implements IService<MenuOptionDto, MenuOption> {
       label: obj.label,
       icon: obj.icon,
       routerLink: obj.routerLink,
-      menu: module,
+      module: _module,
       tenant: tenant,
       application: application,
     };
@@ -116,4 +116,5 @@ export class MenuOptionService implements IService<MenuOptionDto, MenuOption> {
     menuOption.state = StateEnum.DELETED;
     await this._menuOptionRepository.save(menuOption);
   }
+
 }

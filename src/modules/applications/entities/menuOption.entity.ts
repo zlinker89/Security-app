@@ -36,7 +36,4 @@ export class MenuOption extends TenantBase {
   @JoinColumn()
   module: Module
 
-  @ManyToMany(() => Role)
-  @JoinTable()
-  roles: Role[]
 }

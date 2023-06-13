@@ -7,6 +7,7 @@ import { ApplicationService } from 'src/modules/applications/services/applicatio
 import { TypeApp } from 'src/common/enum';
 import { ModuleService } from 'src/modules/applications/services/module/module.service';
 import { PermissionService } from 'src/modules/permissions/services/permission/permission.service';
+import { MenuOptionService } from 'src/modules/applications/services/menu-option/menu-option.service';
 
 @Injectable()
 export class SeedCommand {
@@ -16,6 +17,7 @@ export class SeedCommand {
     private readonly _applicationService: ApplicationService,
     private readonly _moduleService: ModuleService,
     private readonly _permissionService: PermissionService,
+    private readonly _menuOptionService: MenuOptionService,
     private readonly userService: UsersService,
   ) {}
 
@@ -67,9 +69,28 @@ export class SeedCommand {
         });
         permissionCreateds.push(permissionCreated)
       }
+      console.log('create menu option');
+      const menuOptions = [
+        { label: 'Clientes', icon: 'building', routerLink: 'config/tenant'},
+        { label: 'Apps', icon: 'app', routerLink: 'config/app'},
+        { label: 'Roles', icon: 'security', routerLink: 'config/role'},
+      ]
+      const menuOptionCreateds = []
+      for (const menuOption of menuOptions) {
+        const menuOptionCreated = await this._menuOptionService.create({
+          label: menuOption.label,
+          icon: menuOption.icon,
+          applicationId: appWeb.id,
+          moduleId: module1.id,
+          tenantId: client1.id,
+          routerLink: menuOption.routerLink
+        })
+        menuOptionCreateds.push(menuOptionCreated)
+      }
       console.log('setting permissions to rol');
       await this._rolService.updatePermission(rolAdmin.id, permissionCreateds, [])
-      
+      console.log('setting menu options to rol');
+      await this._rolService.updateMenuOption(rolAdmin.id, menuOptionCreateds, [])
     } catch (error) {
       throw error;
     }
