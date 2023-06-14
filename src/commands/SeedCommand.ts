@@ -18,7 +18,7 @@ export class SeedCommand {
     private readonly _moduleService: ModuleService,
     private readonly _permissionService: PermissionService,
     private readonly _menuOptionService: MenuOptionService,
-    private readonly userService: UsersService,
+    private readonly _userService: UsersService,
   ) {}
 
   @Command({
@@ -91,6 +91,14 @@ export class SeedCommand {
       await this._rolService.updatePermission(rolAdmin.id, permissionCreateds, [])
       console.log('setting menu options to rol');
       await this._rolService.updateMenuOption(rolAdmin.id, menuOptionCreateds, [])
+      console.log('create user');
+      await this._userService.create({
+        userName: 'frankozx',
+        password: '12345678',
+        email: 'coordinadordesarrollo@expertosip.com',
+        roleId: rolAdmin.id,
+        tenantId: client1.id
+      })
     } catch (error) {
       throw error;
     }

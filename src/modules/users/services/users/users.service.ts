@@ -41,6 +41,7 @@ export class UsersService implements IService<UserDto, User> {
     return await this._userRepository.save({
       userName: obj.userName,
       password: hash,
+      email: obj.email,
       tenant: tenant,
       role: role,
     });

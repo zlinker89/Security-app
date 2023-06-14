@@ -9,6 +9,11 @@ export class User extends TenantBase {
   })
   userName: string;
 
+  @Column({
+    length: 150
+  })
+  email: string;
+
   @Column()
   password: string;
 

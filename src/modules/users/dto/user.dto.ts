@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNumber, IsString } from "class-validator";
+import { IsEmail, IsNumber, IsString } from "class-validator";
 import { TenantBaseDto } from "src/modules/shared/bases/dto/TenantBase.dto";
 
 export class UserDto extends TenantBaseDto {
@@ -8,6 +8,12 @@ export class UserDto extends TenantBaseDto {
   })
   @IsString()
   userName: string;
+
+  @ApiProperty({
+    maxLength:150
+  })
+  @IsEmail()
+  email: string;
 
   @ApiProperty()
   @IsString()
