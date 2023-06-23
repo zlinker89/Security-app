@@ -13,9 +13,23 @@ import { ApplicationsModule } from './modules/applications/applications.module';
 import { TenantModule } from './modules/tenant/tenant.module';
 import { PermissionsModule } from './modules/permissions/permissions.module';
 import { SeedCommand } from './commands/SeedCommand';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
 @Module({
   imports: [
+    ClientsModule.register([
+      {
+        name: 'EMAIL_SERVICE',
+        transport: Transport.RMQ,
+        options: {
+          urls: ['amqp://franklin:Expertosip%402023.@localhost/'],
+          queue: 'email',
+          queueOptions: {
+            durable: true,
+          },
+        },
+      },
+    ]),
     AuthModule, SharedModule, UsersModule, 
     ConfigModule.forRoot({ envFilePath, isGlobal: true }),
     DatabaseModule,
@@ -23,7 +37,7 @@ const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
     ApplicationsModule,
     TenantModule,
     PermissionsModule,
-    CommandModule
+    CommandModule,
   ],
   controllers: [AppController],
   providers: [SeedCommand, AppService],
